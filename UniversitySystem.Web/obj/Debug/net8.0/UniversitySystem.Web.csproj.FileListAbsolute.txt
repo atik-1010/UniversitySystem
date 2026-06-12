@@ -1,0 +1,8 @@
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/obj/Debug/net8.0/rpswa.dswa.cache.json
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/obj/Debug/net8.0/UniversitySystem.Web.GeneratedMSBuildEditorConfig.editorconfig
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/obj/Debug/net8.0/UniversitySystem.Web.AssemblyInfoInputs.cache
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/obj/Debug/net8.0/UniversitySystem.Web.AssemblyInfo.cs
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/obj/Debug/net8.0/UniversitySystem.Web.csproj.CoreCompileInputs.cache
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/obj/Debug/net8.0/UniversitySystem.Web.MvcApplicationPartsAssemblyInfo.cache
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/obj/Debug/net8.0/UniversitySystem.Web.RazorAssemblyInfo.cache
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/obj/Debug/net8.0/UniversitySystem.Web.RazorAssemblyInfo.cs

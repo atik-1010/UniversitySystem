@@ -1,0 +1,29 @@
+@model List<UniversitySystem.Domain.Entities.Course>
+
+<h2>Course List</h2>
+
+<a href="/Course/Create">Create New</a>
+
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Code</th>
+        <th>Credit</th>
+        <th>Department</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Title</td>
+            <td>@item.Code</td>
+            <td>@item.Credit</td>
+            <td>@item.Department?.Name</td>
+            <td>
+                <a href="/Course/Edit/@item.Id">Edit</a>
+                <a href="/Course/Delete/@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

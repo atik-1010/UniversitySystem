@@ -1,0 +1,320 @@
+@{
+ViewData["Title"] = "Admin Dashboard";
+}
+
+<style>
+
+    .stats-card{
+        background:white;
+        border-radius:24px;
+        padding:28px;
+        box-shadow:0 18px 40px rgba(15,23,42,.06);
+        transition:.25s;
+        height:100%;
+    }
+
+    .stats-card:hover{
+        transform:translateY(-5px);
+    }
+
+    .stats-number{
+        font-size:42px;
+        font-weight:700;
+        color:#0f172a;
+    }
+
+    .stats-title{
+        color:#64748b;
+        font-size:14px;
+    }
+
+    .icon-box{
+        width:62px;
+        height:62px;
+        border-radius:18px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:24px;
+        color:white;
+    }
+
+    .gradient-blue{
+        background:linear-gradient(135deg,#2563eb,#60a5fa);
+    }
+
+    .gradient-green{
+        background:linear-gradient(135deg,#16a34a,#4ade80);
+    }
+
+    .gradient-purple{
+        background:linear-gradient(135deg,#7c3aed,#c084fc);
+    }
+
+    .gradient-orange{
+        background:linear-gradient(135deg,#ea580c,#fdba74);
+    }
+
+    .quick{
+        background:white;
+        border-radius:24px;
+        padding:30px;
+        margin-top:30px;
+        box-shadow:0 18px 40px rgba(15,23,42,.06);
+    }
+
+    .quick a{
+        margin-bottom:14px;
+    }
+
+    .chart-card{
+        background:white;
+        border-radius:24px;
+        padding:25px;
+        margin-top:30px;
+        box-shadow:0 18px 40px rgba(15,23,42,.06);
+    }
+
+</style>
+
+<div class="mb-4">
+
+    <h2>
+        🚀 Admin Dashboard
+    </h2>
+
+    <div class="text-secondary">
+        University Management Control Center
+    </div>
+
+</div>
+
+<div class="row g-4">
+
+    <div class="col-lg-3">
+
+        <div class="stats-card">
+
+            <div class="d-flex justify-content-between">
+
+                <div>
+
+                    <div class="stats-title">
+                        Total Users
+                    </div>
+
+                    <div class="stats-number">
+                        @(ViewBag.TotalUsers ?? 0)
+                    </div>
+
+                </div>
+
+                <div class="icon-box gradient-blue">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-3">
+
+        <div class="stats-card">
+
+            <div class="d-flex justify-content-between">
+
+                <div>
+
+                    <div class="stats-title">
+                        Students
+                    </div>
+
+                    <div class="stats-number">
+                        @(ViewBag.TotalStudents ?? 0)
+                    </div>
+
+                </div>
+
+                <div class="icon-box gradient-green">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-3">
+
+        <div class="stats-card">
+
+            <div class="d-flex justify-content-between">
+
+                <div>
+
+                    <div class="stats-title">
+                        Teachers
+                    </div>
+
+                    <div class="stats-number">
+                        @(ViewBag.TotalTeachers ?? 0)
+                    </div>
+
+                </div>
+
+                <div class="icon-box gradient-purple">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-3">
+
+        <div class="stats-card">
+
+            <div class="d-flex justify-content-between">
+
+                <div>
+
+                    <div class="stats-title">
+                        Departments
+                    </div>
+
+                    <div class="stats-number">
+                        @(ViewBag.TotalDepartments ?? 0)
+                    </div>
+
+                </div>
+
+                <div class="icon-box gradient-orange">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- QUICK ACTIONS FIRST -->
+
+<div class="quick">
+
+    <h5 class="mb-4">
+        ⚡ Quick Actions
+    </h5>
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            <a href="/Account/Register"
+               class="btn btn-primary w-100">
+
+                Create User
+
+            </a>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <a href="/Student/Create"
+               class="btn btn-success w-100">
+
+                Create Student
+
+            </a>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <a href="/Department/Create"
+               class="btn btn-warning w-100">
+
+                Create Department
+
+            </a>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <a href="/Admin/Users"
+               class="btn btn-dark w-100">
+
+                Manage Users
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- SYSTEM OVERVIEW BELOW -->
+
+<div class="chart-card">
+
+    <h5 class="mb-4">
+        📊 System Overview
+    </h5>
+
+    <canvas id="roleChart"></canvas>
+
+</div>
+
+
+@section Scripts{
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    new Chart(
+        document.getElementById("roleChart"),
+        {
+            type:"doughnut",
+
+            data:{
+                labels:[
+                    "Admins",
+                    "Teachers",
+                    "Students"
+                ],
+
+                datasets:[{
+                    data:[
+                        @(ViewBag.TotalAdmins ?? 0),
+                        @(ViewBag.TotalTeachers ?? 0),
+                        @(ViewBag.TotalStudentUsers ?? 0)
+                    ]
+                }]
+            }
+
+        });
+
+</script>
+
+}

@@ -1,0 +1,4 @@
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net8.0/UniversitySystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net8.0/UniversitySystem.Domain.AssemblyInfoInputs.cache
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net8.0/UniversitySystem.Domain.AssemblyInfo.cs
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net8.0/UniversitySystem.Domain.csproj.CoreCompileInputs.cache

@@ -1,0 +1,270 @@
+@model List<UniversitySystem.Application.DTOs.DepartmentDto>
+
+@{
+ViewData["Title"] = "Departments";
+}
+
+<style>
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.page-title{
+    font-size:28px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.page-subtitle{
+    color:#64748b;
+    font-size:14px;
+}
+
+.search-card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+    margin-bottom:20px;
+}
+
+.stats-card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+    margin-bottom:20px;
+}
+
+.table-card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.total-count{
+    font-size:32px;
+    font-weight:700;
+    color:#2563eb;
+}
+
+.table th{
+    background:#0f172a;
+    color:white;
+    border:none;
+}
+
+.table td{
+    vertical-align:middle;
+}
+
+.department-badge{
+    background:#dbeafe;
+    color:#1d4ed8;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.action-btn{
+    min-width:85px;
+}
+
+</style>
+
+<div class="page-header">
+
+
+<div>
+
+    <div class="page-title">
+        🏢 Department Management
+    </div>
+
+    <div class="page-subtitle">
+        Manage university departments and academic units
+    </div>
+
+</div>
+
+<a href="/Department/Create"
+   class="btn btn-success btn-lg">
+
+    <i class="fa fa-plus"></i>
+    Create Department
+
+</a>
+
+
+</div>
+
+@if (TempData["Success"] != null)
+{ <div class="alert alert-success alert-dismissible fade show shadow-sm">
+
+
+    @TempData["Success"]
+
+    <button type="button"
+            class="btn-close"
+            data-bs-dismiss="alert">
+    </button>
+
+</div>
+
+
+}
+
+<div class="stats-card">
+
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <h6 class="text-muted">
+            Total Departments
+        </h6>
+
+        <div class="total-count">
+            @(Model?.Count ?? 0)
+        </div>
+
+    </div>
+
+    <div class="col-md-6 text-end">
+
+        <span class="badge bg-primary fs-6">
+            Academic Units
+        </span>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<div class="search-card">
+
+
+<form method="get">
+
+    <div class="row">
+
+        <div class="col-md-10">
+
+            <input type="text"
+                   name="search"
+                   value="@ViewBag.Search"
+                   class="form-control form-control-lg"
+                   placeholder="Search Department..." />
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button class="btn btn-primary btn-lg w-100">
+
+                <i class="fa fa-search"></i>
+                Search
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+
+</div>
+
+<div class="table-card">
+
+
+<div class="table-responsive">
+
+    <table class="table table-hover align-middle">
+
+        <thead>
+
+        <tr>
+            <th width="120">ID</th>
+            <th>Department Name</th>
+            <th width="250">Actions</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        @if(Model == null || Model.Count == 0)
+        {
+            <tr>
+
+                <td colspan="3"
+                    class="text-center text-muted py-5">
+
+                    No Department Records Found
+
+                </td>
+
+            </tr>
+        }
+        else
+        {
+            @foreach(var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        <strong>#@item.Id</strong>
+                    </td>
+
+                    <td>
+
+                        <span class="department-badge">
+                            @item.Name
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <a href="/Department/Edit/@item.Id"
+                           class="btn btn-warning btn-sm action-btn">
+
+                            <i class="fa fa-edit"></i>
+                            Edit
+
+                        </a>
+
+                        <a href="/Department/Delete/@item.Id"
+                           class="btn btn-danger btn-sm action-btn"
+                           onclick="return confirm('Are you sure you want to delete this department?')">
+
+                            <i class="fa fa-trash"></i>
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+            }
+        }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+</div>

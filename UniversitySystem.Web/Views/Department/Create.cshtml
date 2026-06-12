@@ -1,0 +1,166 @@
+@model UniversitySystem.Domain.Entities.Department
+
+@{
+ViewData["Title"] = "Create Department";
+}
+
+<style>
+
+.form-container{
+    max-width:800px;
+    margin:auto;
+}
+
+.glass-card{
+    background:white;
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+.page-title{
+    font-size:30px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.page-subtitle{
+    color:#64748b;
+    margin-bottom:25px;
+}
+
+.form-label{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.form-control{
+    border-radius:12px;
+    padding:12px;
+    border:1px solid #dbe2ea;
+}
+
+.form-control:focus{
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+    border-color:#2563eb;
+}
+
+.info-box{
+    background:#ecfdf5;
+    border-left:5px solid #10b981;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:25px;
+}
+
+.action-buttons{
+    margin-top:30px;
+}
+
+.icon-circle{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#10b981;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    margin-bottom:20px;
+}
+
+</style>
+
+<div class="form-container">
+
+
+<div class="mb-4">
+
+    <div class="icon-circle">
+        <i class="fa fa-building"></i>
+    </div>
+
+    <div class="page-title">
+        🏢 Create Department
+    </div>
+
+    <div class="page-subtitle">
+        Create and manage academic departments within the University Management System
+    </div>
+
+</div>
+
+<div class="info-box">
+
+    <strong>Tip:</strong>
+    Use a unique and meaningful department name such as
+    Computer Science & Engineering (CSE),
+    Electrical Engineering (EEE),
+    Mechanical Engineering (ME).
+
+</div>
+
+<div class="glass-card">
+
+    <form asp-action="Create"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="All"
+             class="alert alert-danger">
+        </div>
+
+        <div class="mb-4">
+
+            <label asp-for="Name"
+                   class="form-label">
+
+                Department Name
+
+            </label>
+
+            <input asp-for="Name"
+                   class="form-control form-control-lg"
+                   placeholder="Enter Department Name" />
+
+            <span asp-validation-for="Name"
+                  class="text-danger">
+            </span>
+
+        </div>
+
+        <div class="action-buttons">
+
+            <button type="submit"
+                    class="btn btn-success btn-lg">
+
+                <i class="fa fa-save"></i>
+                Save Department
+
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary btn-lg">
+
+                <i class="fa fa-arrow-left"></i>
+                Back
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+</div>
+
+@section Scripts
+{
+@{
+await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

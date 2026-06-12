@@ -1,0 +1,18 @@
+@model UniversitySystem.Domain.Entities.Course
+
+<h2>Create Course</h2>
+
+<form method="post">
+    <input name="Title" placeholder="Title" />
+    <input name="Code" placeholder="Code" />
+    <input name="Credit" placeholder="Credit" />
+
+    <select name="DepartmentId">
+        @foreach (var d in ViewBag.Departments)
+        {
+            <option value="@d.Id">@d.Name</option>
+        }
+    </select>
+
+    <button type="submit">Save</button>
+</form>

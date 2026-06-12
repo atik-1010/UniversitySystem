@@ -1,0 +1,52 @@
+@using UniversitySystem.Application.DTOs
+@model UniversitySystem.Domain.Entities.Teacher
+
+<h2>➕ Create Teacher</h2>
+
+<form method="post" style="max-width:400px;">
+
+    <!-- Validation summary (important) -->
+    <div style="color:red;">
+        @Html.ValidationSummary()
+    </div>
+
+    <label>Name</label><br />
+    <input name="Name" class="form-control" style="width:100%;" required />
+    <br />
+
+    <label>Email</label><br />
+    <input name="Email" class="form-control" style="width:100%;" required />
+    <br />
+
+    <label>Designation</label><br />
+    <input name="Designation" class="form-control" style="width:100%;" required />
+    <br />
+
+    <label>Department</label><br />
+    <select name="DepartmentId" class="form-control" style="width:100%;" required>
+        <option value="">-- Select Department --</option>
+
+        @if (ViewBag.Departments != null)
+        {
+            var departments = ViewBag.Departments as List<DepartmentDto>;
+
+            if (departments != null && departments.Any())
+            {
+                foreach (var d in departments)
+                {
+                    <option value="@d.Id">@d.Name</option>
+                }
+            }
+        }
+    </select>
+
+    <br /><br />
+
+    <button type="submit"
+            style="padding:8px 15px; background:green; color:white; border:none;">
+        Save Teacher
+    </button>
+
+    <a href="/Teacher" style="margin-left:10px;">Cancel</a>
+
+</form>

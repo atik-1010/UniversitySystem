@@ -1,0 +1,11 @@
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/bin/Debug/net10.0/UniversitySystem.Domain.deps.json
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/bin/Debug/net10.0/UniversitySystem.Domain.dll
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/bin/Debug/net10.0/UniversitySystem.Domain.pdb
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/UniversitySystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/UniversitySystem.Domain.AssemblyInfoInputs.cache
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/UniversitySystem.Domain.AssemblyInfo.cs
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/UniversitySystem.Domain.csproj.CoreCompileInputs.cache
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/UniversitySystem.Domain.dll
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/refint/UniversitySystem.Domain.dll
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/UniversitySystem.Domain.pdb
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/ref/UniversitySystem.Domain.dll

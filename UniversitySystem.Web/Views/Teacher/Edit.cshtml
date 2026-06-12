@@ -1,0 +1,39 @@
+@model UniversitySystem.Domain.Entities.Teacher
+
+<h2>✏️ Edit Teacher</h2>
+
+<form method="post" style="max-width:400px;">
+
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <label>Name</label><br />
+    <input name="Name" value="@Model.Name" style="width:100%;" />
+    <br />
+
+    <label>Email</label><br />
+    <input name="Email" value="@Model.Email" style="width:100%;" />
+    <br />
+
+    <label>Designation</label><br />
+    <input name="Designation" value="@Model.Designation" style="width:100%;" />
+    <br />
+
+    <label>Department</label><br />
+    <select name="DepartmentId" style="width:100%;">
+        @foreach (var d in ViewBag.Departments)
+        {
+            <option value="@d.Id" selected="@(d.Id == Model.DepartmentId)">
+                @d.Name
+            </option>
+        }
+    </select>
+
+    <br /><br />
+
+    <button type="submit" style="padding:8px 15px; background:blue; color:white; border:none;">
+        Update
+    </button>
+
+    <a href="/Teacher">Cancel</a>
+
+</form>

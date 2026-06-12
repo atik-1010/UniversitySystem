@@ -1,0 +1,22 @@
+@model UniversitySystem.Domain.Entities.Course
+
+<h2>Edit Course</h2>
+
+<form method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <input name="Title" value="@Model.Title" />
+    <input name="Code" value="@Model.Code" />
+    <input name="Credit" value="@Model.Credit" />
+
+    <select name="DepartmentId">
+        @foreach (var d in ViewBag.Departments)
+        {
+            <option value="@d.Id" selected="@(d.Id == Model.DepartmentId)">
+                @d.Name
+            </option>
+        }
+    </select>
+
+    <button type="submit">Update</button>
+</form>

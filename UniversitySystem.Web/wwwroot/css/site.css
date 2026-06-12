@@ -1,0 +1,294 @@
+html {
+  font-size: 14px;
+  scroll-behavior: smooth;
+  position: relative;
+  min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* ==========================
+ROOT COLORS
+========================== */
+
+:root {
+  --primary: #2563eb;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --dark: #0f172a;
+  --light: #f8fafc;
+  --border: #e2e8f0;
+  --text: #1e293b;
+}
+
+/* ==========================
+BODY
+========================== */
+
+body {
+  margin-bottom: 60px;
+  background: #f1f5f9;
+  color: var(--text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: all .3s ease;
+}
+
+/* ==========================
+SCROLLBAR
+========================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* ==========================
+BUTTONS
+========================== */
+
+.btn {
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all .25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--primary);
+  border: none;
+}
+
+.btn-success {
+  background: var(--success);
+  border: none;
+}
+
+.btn-danger {
+  background: var(--danger);
+  border: none;
+}
+
+.btn-warning {
+  border: none;
+}
+
+/* ==========================
+FOCUS
+========================== */
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 0.25rem rgba(37,99,235,.20);
+}
+
+/* ==========================
+FORMS
+========================== */
+
+.form-control,
+.form-select {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary);
+}
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/* ==========================
+CARDS
+========================== */
+
+.card {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+}
+
+.card-header {
+  border: none;
+}
+
+/* ==========================
+TABLES
+========================== */
+
+.table {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: var(--dark);
+  color: white;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+/* ==========================
+ALERTS
+========================== */
+
+.alert {
+  border-radius: 12px;
+  border: none;
+}
+
+/* ==========================
+BADGES
+========================== */
+
+.badge {
+  padding: 8px 12px;
+  border-radius: 50px;
+}
+
+/* ==========================
+DASHBOARD CARDS
+========================== */
+
+.stat-card {
+  color: white;
+  padding: 25px;
+  border-radius: 20px;
+  transition: .3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-blue {
+  background: linear-gradient(135deg,#2563eb,#3b82f6);
+}
+
+.stat-green {
+  background: linear-gradient(135deg,#10b981,#34d399);
+}
+
+.stat-orange {
+  background: linear-gradient(135deg,#f59e0b,#fbbf24);
+}
+
+.stat-red {
+  background: linear-gradient(135deg,#ef4444,#f87171);
+}
+
+/* ==========================
+SEARCH BOX
+========================== */
+
+.search-box {
+  background: white;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.05);
+}
+
+/* ==========================
+GLASS EFFECT
+========================== */
+
+.glass {
+  background: rgba(255,255,255,.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.30);
+  border-radius: 20px;
+}
+
+/* ==========================
+PAGE TITLES
+========================== */
+
+.page-title {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.page-subtitle {
+  color: #64748b;
+  margin-bottom: 25px;
+}
+
+/* ==========================
+DARK MODE SUPPORT
+========================== */
+
+body.dark {
+  background: #0f172a;
+  color: white;
+}
+
+body.dark .card,
+body.dark .glass,
+body.dark .search-box {
+  background: #1e293b;
+  color: white;
+}
+
+body.dark .table {
+  color: white;
+}
+
+body.dark .form-control,
+body.dark .form-select {
+  background: #334155;
+  color: white;
+  border-color: #475569;
+}
+
+body.dark .form-control::placeholder {
+  color: #cbd5e1;
+}
+
+/* ==========================
+FOOTER
+========================== */
+
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+}

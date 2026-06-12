@@ -1,0 +1,47 @@
+@model UniversitySystem.Domain.Entities.Department
+
+@{
+    ViewData["Title"] = "Edit Department";
+}
+
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h4>Edit Department</h4>
+    </div>
+
+    <div class="card-body">
+
+        <form asp-action="Edit" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">
+                    Department Name
+                </label>
+
+                <input asp-for="Name" class="form-control" />
+
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Update Department
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Back
+            </a>
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

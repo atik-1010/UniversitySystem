@@ -1,0 +1,357 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<style>
+
+.dashboard-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.dashboard-title{
+font-size:30px;
+font-weight:700;
+color:#0f172a;
+}
+
+.dashboard-subtitle{
+color:#64748b;
+font-size:14px;
+}
+
+.stat-card{
+background:white;
+border-radius:24px;
+padding:26px;
+box-shadow:0 18px 40px rgba(15,23,42,.06);
+transition:.25s;
+height:100%;
+}
+
+.stat-card:hover{
+transform:translateY(-5px);
+}
+
+.icon-box{
+width:65px;
+height:65px;
+border-radius:18px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:24px;
+color:white;
+}
+
+.blue{
+background:linear-gradient(135deg,#2563eb,#60a5fa);
+}
+
+.green{
+background:linear-gradient(135deg,#16a34a,#4ade80);
+}
+
+.orange{
+background:linear-gradient(135deg,#ea580c,#fdba74);
+}
+
+.red{
+background:linear-gradient(135deg,#dc2626,#fb7185);
+}
+
+.card-value{
+font-size:34px;
+font-weight:700;
+margin-top:10px;
+}
+
+.card-label{
+color:#64748b;
+font-size:14px;
+}
+
+.quick-card,
+.activity-card{
+background:white;
+border-radius:24px;
+padding:28px;
+box-shadow:0 18px 40px rgba(15,23,42,.06);
+margin-top:30px;
+}
+
+.quick-btn{
+width:100%;
+margin-bottom:12px;
+}
+
+.activity-item{
+padding:14px 0;
+border-bottom:1px solid #e2e8f0;
+}
+
+.activity-item:last-child{
+border-bottom:none;
+}
+
+</style>
+
+<div class="dashboard-header">
+
+<div>
+
+<div class="dashboard-title">
+📊 Dashboard
+</div>
+
+<div class="dashboard-subtitle">
+University Management System Overview
+</div>
+
+</div>
+
+<div>
+
+<span class="badge bg-success fs-6">
+System Active
+</span>
+
+</div>
+
+</div>
+
+
+<div class="row g-4">
+
+<div class="col-lg-3">
+
+<div class="stat-card">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<div class="card-label">
+Departments
+</div>
+
+<div class="card-value">
+@(ViewBag.DepartmentCount ?? 0)
+</div>
+
+</div>
+
+<div class="icon-box blue">
+<i class="fa-solid fa-building"></i>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-lg-3">
+
+<div class="stat-card">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<div class="card-label">
+Students
+</div>
+
+<div class="card-value">
+@(ViewBag.StudentCount ?? 0)
+</div>
+
+</div>
+
+<div class="icon-box green">
+<i class="fa-solid fa-user-graduate"></i>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-lg-3">
+
+<div class="stat-card">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<div class="card-label">
+Users
+</div>
+
+<div class="card-value">
+@(ViewBag.UserCount ?? 0)
+</div>
+
+</div>
+
+<div class="icon-box orange">
+<i class="fa-solid fa-users"></i>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-lg-3">
+
+<div class="stat-card">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<div class="card-label">
+Status
+</div>
+
+<div class="card-value">
+✔
+</div>
+
+</div>
+
+<div class="icon-box red">
+<i class="fa-solid fa-shield-halved"></i>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- QUICK ACTIONS -->
+
+<div class="quick-card">
+
+<h5 class="mb-4">
+⚡ Quick Actions
+</h5>
+
+<div class="row">
+
+<div class="col-md-4">
+
+<a href="/Department/Create"
+class="btn btn-primary quick-btn">
+
+Create Department
+
+</a>
+
+</div>
+
+<div class="col-md-4">
+
+<a href="/Student/Create"
+class="btn btn-success quick-btn">
+
+Create Student
+
+</a>
+
+</div>
+
+@if(User.IsInRole("Admin"))
+{
+
+<div class="col-md-4">
+
+<a href="/Account/Register"
+class="btn btn-dark quick-btn">
+
+Create User
+
+</a>
+
+</div>
+
+}
+
+</div>
+
+</div>
+
+
+
+<!-- SYSTEM OVERVIEW -->
+
+<div class="activity-card">
+
+<h5 class="mb-4">
+📈 System Overview
+</h5>
+
+<div class="activity-item">
+
+Total Departments:
+<strong>
+@ViewBag.DepartmentCount
+</strong>
+
+</div>
+
+<div class="activity-item">
+
+Total Students:
+<strong>
+@ViewBag.StudentCount
+</strong>
+
+</div>
+
+<div class="activity-item">
+
+System Status:
+<strong class="text-success">
+Running
+</strong>
+
+</div>
+
+<div class="activity-item">
+
+Current User:
+<strong>
+@User.Identity?.Name
+</strong>
+
+</div>
+
+<div class="activity-item">
+
+Current Role:
+<strong>
+@(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value)
+</strong>
+
+</div>
+
+</div>

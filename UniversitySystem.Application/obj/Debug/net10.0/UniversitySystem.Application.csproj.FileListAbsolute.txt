@@ -1,0 +1,15 @@
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/bin/Debug/net10.0/UniversitySystem.Application.deps.json
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/bin/Debug/net10.0/UniversitySystem.Application.dll
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/bin/Debug/net10.0/UniversitySystem.Application.pdb
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/bin/Debug/net10.0/UniversitySystem.Domain.dll
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/bin/Debug/net10.0/UniversitySystem.Domain.pdb
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/obj/Debug/net10.0/UniversitySystem.Application.csproj.AssemblyReference.cache
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/obj/Debug/net10.0/UniversitySystem.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/obj/Debug/net10.0/UniversitySystem.Application.AssemblyInfoInputs.cache
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/obj/Debug/net10.0/UniversitySystem.Application.AssemblyInfo.cs
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/obj/Debug/net10.0/UniversitySystem.Application.csproj.CoreCompileInputs.cache
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/obj/Debug/net10.0/Universi.B994B636.Up2Date
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/obj/Debug/net10.0/UniversitySystem.Application.dll
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/obj/Debug/net10.0/refint/UniversitySystem.Application.dll
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/obj/Debug/net10.0/UniversitySystem.Application.pdb
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Application/obj/Debug/net10.0/ref/UniversitySystem.Application.dll
