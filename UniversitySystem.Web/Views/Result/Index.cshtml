@@ -1,0 +1,102 @@
+@model UniversitySystem.Application.DTOs.StudentResultDto
+
+<h1>🎓 Academic Transcript</h1>
+
+<hr>
+
+<h3>
+    Student:
+    @Model.StudentName
+</h3>
+
+<h4>
+    ID:
+    @Model.StudentIdCode
+</h4>
+
+<h2>
+    GPA:
+    <span style="color:green;">
+        @Model.GPA
+    </span>
+</h2>
+
+<h2>
+    Grade:
+    <span style="color:blue;">
+        @Model.FinalGrade
+    </span>
+</h2>
+
+<table
+    border="1"
+    style="
+width:100%;
+border-collapse:collapse;
+">
+
+    <tr>
+
+        <th>
+            Course
+        </th>
+
+        <th>
+            Marks
+        </th>
+
+        <th>
+            Grade
+        </th>
+
+        <th>
+            GP
+        </th>
+
+    </tr>
+
+    @foreach (
+        var row
+        in Model.Results
+    )
+    {
+        <tr>
+
+            <td>
+                @row.Course
+            </td>
+
+            <td>
+                @row.Marks
+            </td>
+
+            <td>
+                @row.Grade
+            </td>
+
+            <td>
+                @row.GradePoint
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<br>
+
+<a
+    href="/Result/Search">
+
+    ⬅ Back
+
+</a>
+
+&nbsp;
+
+<a
+    href="/Result/Print?studentId=@ViewBag.StudentId">
+
+    🖨 Print
+
+</a>

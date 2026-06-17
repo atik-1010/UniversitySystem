@@ -1,12 +1,13 @@
-using UniversitySystem.Domain.Entities;
+using UniversitySystem.Application.DTOs;
 
-namespace UniversitySystem.Application.Interfaces;
-
-public interface ICourseService
+namespace UniversitySystem.Application.Interfaces
 {
-    Task<List<Course>> GetAllAsync();
-    Task<Course?> GetByIdAsync(int id);
-    Task CreateAsync(Course course);
-    Task UpdateAsync(Course course);
-    Task DeleteAsync(int id);
+    public interface ICourseService
+    {
+        Task<List<CourseDto>> GetAllAsync();
+        Task<CourseDto?> GetByIdAsync(int id);
+        Task CreateAsync(CourseDto dto);
+        Task UpdateAsync(CourseDto dto);
+        Task DeleteAsync(int id);
+    }
 }

@@ -1,144 +1,108 @@
 using Microsoft.EntityFrameworkCore;
 using UniversitySystem.Domain.Entities;
 
-namespace UniversitySystem.Infrastructure.Data;
-
-public class AppDbContext : DbContext
+namespace UniversitySystem.Infrastructure.Data
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
+    public class AppDbContext : DbContext
     {
-    }
-
-    // =========================
-    // TABLES
-    // =========================
-
-    public DbSet<Student> Students => Set<Student>();
-    public DbSet<Department> Departments => Set<Department>();
-    public DbSet<AppUser> Users => Set<AppUser>();
-
-    // STEP 6–8 MODULES
-    public DbSet<Course> Courses => Set<Course>();
-    public DbSet<Teacher> Teachers => Set<Teacher>();
-    public DbSet<StudentMark> StudentMarks => Set<StudentMark>();
-
-    // =========================
-    // MODEL CONFIG
-    // =========================
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-
-        // =========================
-        // STUDENT → DEPARTMENT
-        // =========================
-
-        modelBuilder.Entity<Student>(entity =>
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
         {
-            entity.HasKey(x => x.Id);
+        }
 
-            entity.Property(x => x.DepartmentId)
-                .IsRequired();
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<AppUser> Users { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<StudentMark> StudentMarks { get; set; }
+        public DbSet<Notice> Notices { get; set; }
+        public DbSet<Alumni> Alumni { get; set; }
 
-            entity
-                .HasOne(x => x.Department)
-                .WithMany(d => d.Students)
-                .HasForeignKey(x => x.DepartmentId)
-                .OnDelete(DeleteBehavior.Restrict);
-        });
-
-        // =========================
-        // COURSE → DEPARTMENT
-        // =========================
-
-        modelBuilder.Entity<Course>(entity =>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            entity.HasKey(x => x.Id);
+            base.OnModelCreating(modelBuilder);
 
-            entity.Property(x => x.Title)
-                .IsRequired()
-                .HasMaxLength(200);
+            // Student
+            modelBuilder.Entity<Student>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.StudentIdCode).IsRequired();
+                entity.Property(x => x.Name).IsRequired();
+                entity.Property(x => x.Email).IsRequired();
 
-            entity.Property(x => x.Code)
-                .IsRequired()
-                .HasMaxLength(50);
+                entity.HasOne(x => x.Department)
+                    .WithMany(x => x.Students)
+                    .HasForeignKey(x => x.DepartmentId);
+            });
 
-            entity.Property(x => x.Credit)
-                .IsRequired();
+            // Course
+            modelBuilder.Entity<Course>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.Title).IsRequired();
+                entity.Property(x => x.Code).IsRequired();
+                entity.Property(x => x.Credit).IsRequired();
 
-            entity
-                .HasOne(x => x.Department)
-                .WithMany(d => d.Courses)
-                .HasForeignKey(x => x.DepartmentId)
-                .OnDelete(DeleteBehavior.Restrict);
-        });
+                entity.HasOne(x => x.Department)
+                    .WithMany(x => x.Courses)
+                    .HasForeignKey(x => x.DepartmentId);
+            });
 
-        // =========================
-        // TEACHER → DEPARTMENT
-        // =========================
+            // Teacher
+            modelBuilder.Entity<Teacher>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.Name).IsRequired();
 
-        modelBuilder.Entity<Teacher>(entity =>
-        {
-            entity.HasKey(x => x.Id);
+                entity.HasOne(x => x.Department)
+                    .WithMany(x => x.Teachers)
+                    .HasForeignKey(x => x.DepartmentId);
+            });
 
-            entity.Property(x => x.Name)
-                .IsRequired()
-                .HasMaxLength(150);
+            // StudentMark
+            modelBuilder.Entity<StudentMark>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.Marks).IsRequired();
 
-            entity
-                .HasOne(x => x.Department)
-                .WithMany(d => d.Teachers)
-                .HasForeignKey(x => x.DepartmentId)
-                .OnDelete(DeleteBehavior.Restrict);
-        });
+                entity.HasOne(x => x.Student)
+                    .WithMany(x => x.StudentMarks)
+                    .HasForeignKey(x => x.StudentId);
 
-        // =========================
-        // STUDENT MARKS
-        // =========================
+                entity.HasOne(x => x.Course)
+                    .WithMany()
+                    .HasForeignKey(x => x.CourseId);
+            });
 
-        modelBuilder.Entity<StudentMark>(entity =>
-        {
-            entity.HasKey(x => x.Id);
+            // AppUser
+            modelBuilder.Entity<AppUser>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+                entity.HasIndex(x => x.Username).IsUnique();
+            });
 
-            entity.Property(x => x.Marks)
-                .IsRequired();
+            // Notice
+            modelBuilder.Entity<Notice>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.Title).IsRequired();
+                entity.Property(x => x.Description).IsRequired();
+                entity.Property(x => x.Date).IsRequired();
+            });
 
-            entity
-                .HasOne(x => x.Student)
-                .WithMany(s => s.StudentMarks)
-                .HasForeignKey(x => x.StudentId)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Alumni
+            modelBuilder.Entity<Alumni>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.Name).IsRequired();
+                entity.Property(x => x.Email).IsRequired();
+                entity.Property(x => x.GraduationYear).IsRequired();
 
-            entity
-                .HasOne(x => x.Course)
-                .WithMany()
-                .HasForeignKey(x => x.CourseId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
-
-        // =========================
-        // USER CONFIG
-        // =========================
-
-        modelBuilder.Entity<AppUser>(entity =>
-        {
-            entity.HasKey(x => x.Id);
-
-            entity
-                .HasIndex(x => x.Username)
-                .IsUnique();
-
-            entity.Property(x => x.Username)
-                .HasMaxLength(100);
-
-            entity.Property(x => x.Role)
-                .HasMaxLength(50)
-                .HasDefaultValue("Student");
-
-            entity.Property(x => x.PasswordHash)
-                .HasColumnType("nvarchar(max)");
-        });
+                entity.HasOne(x => x.Department)
+                    .WithMany()
+                    .HasForeignKey(x => x.DepartmentId);
+            });
+        }
     }
 }

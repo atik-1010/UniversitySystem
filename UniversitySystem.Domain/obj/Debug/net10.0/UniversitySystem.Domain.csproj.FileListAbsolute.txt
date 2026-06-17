@@ -9,3 +9,4 @@
 /Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/refint/UniversitySystem.Domain.dll
 /Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/UniversitySystem.Domain.pdb
 /Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/ref/UniversitySystem.Domain.dll
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Domain/obj/Debug/net10.0/UniversitySystem.Domain.sourcelink.json

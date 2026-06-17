@@ -1,0 +1,39 @@
+@model UniversitySystem.Application.DTOs.AlumniDto
+
+@{
+    ViewData["Title"] = "Create Alumni";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Alumni</h2>
+<hr />
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" type="email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DepartmentId" class="form-label">Department</label>
+        <select asp-for="DepartmentId" class="form-select"
+                asp-items="ViewBag.Departments"></select>
+        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GraduationYear" class="form-label"></label>
+        <input asp-for="GraduationYear" type="number" class="form-control" />
+        <span asp-validation-for="GraduationYear" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

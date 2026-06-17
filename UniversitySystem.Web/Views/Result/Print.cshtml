@@ -1,0 +1,100 @@
+@model UniversitySystem.Application.DTOs.StudentResultDto
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>
+        Result Sheet
+    </title>
+
+</head>
+
+<body
+    onload="window.print()">
+
+<h1>
+
+    UNIVERSITY RESULT
+
+</h1>
+
+<hr>
+
+<h3>
+
+    Student:
+    @Model.StudentName
+
+</h3>
+
+<h3>
+
+    ID:
+    @Model.StudentIdCode
+
+</h3>
+
+<h2>
+
+    GPA:
+    @Model.GPA
+
+</h2>
+
+<h2>
+
+    GRADE:
+    @Model.FinalGrade
+
+</h2>
+
+<table
+    border="1"
+    width="100%">
+
+    <tr>
+
+        <th>
+            Course
+        </th>
+
+        <th>
+            Marks
+        </th>
+
+        <th>
+            Grade
+        </th>
+
+    </tr>
+
+    @foreach (
+        var r
+        in Model.Results
+    )
+    {
+        <tr>
+
+            <td>
+                @r.Course
+            </td>
+
+            <td>
+                @r.Marks
+            </td>
+
+            <td>
+                @r.Grade
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+</body>
+
+</html>

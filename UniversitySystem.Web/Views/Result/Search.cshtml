@@ -1,0 +1,77 @@
+@using UniversitySystem.Application.DTOs
+
+<h2>
+    🔎 Student Result Search
+</h2>
+
+@if (TempData["msg"] != null)
+{
+<div
+        style="
+padding:10px;
+background:#ffeaea;
+color:red;
+margin-bottom:20px;
+">
+    @TempData["msg"]
+</div>
+}
+
+<form
+        method="get"
+        action="/Result/Index">
+
+    <label>
+
+        Student
+
+    </label>
+
+    <br>
+
+    <select
+            name="studentId"
+            required
+            style="
+width:400px;
+height:40px;
+">
+
+        <option value="">
+            Select Student
+        </option>
+
+        @foreach (
+        var s
+        in ViewBag.Students
+        )
+        {
+        <option
+                value="@s.Id">
+
+            @s.Name
+
+            (
+            @s.StudentIdCode
+            )
+
+        </option>
+        }
+
+    </select>
+
+    <br><br>
+
+    <button
+            style="
+padding:10px;
+background:green;
+color:white;
+border:none;
+">
+
+        View Result
+
+    </button>
+
+</form>

@@ -2,153 +2,128 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UniversitySystem.Application.Interfaces;
+using UniversitySystem.Application.DTOs;
 using UniversitySystem.Domain.Entities;
 
-namespace UniversitySystem.Web.Controllers;
-
-[Authorize(Roles = "Admin,Teacher,Student")]
-public class StudentController : Controller
+namespace UniversitySystem.Web.Controllers
 {
-    private readonly IStudentService _studentService;
-    private readonly IDepartmentService _departmentService;
-
-    public StudentController(
-        IStudentService studentService,
-        IDepartmentService departmentService)
+    [Authorize(Roles = "Admin,Teacher,Student")]
+    public class StudentController : Controller
     {
-        _studentService = studentService;
-        _departmentService = departmentService;
-    }
+        private readonly IStudentService _studentService;
+        private readonly IDepartmentService _departmentService;
 
-    // ================= INDEX =================
-    public async Task<IActionResult> Index(string search, int page = 1)
-    {
-        int pageSize = 5;
-
-        var data = await _studentService.GetAllAsync();
-
-        if (!string.IsNullOrWhiteSpace(search))
+        public StudentController(
+            IStudentService studentService,
+            IDepartmentService departmentService)
         {
-            data = data.Where(x =>
-                (x.StudentIdCode != null && x.StudentIdCode.ToLower().Contains(search.ToLower())) ||
-                (x.Name != null && x.Name.ToLower().Contains(search.ToLower())) ||
-                (x.Email != null && x.Email.ToLower().Contains(search.ToLower())) ||
-                (x.DepartmentName != null && x.DepartmentName.ToLower().Contains(search.ToLower())))
-                .ToList();
+            _studentService = studentService;
+            _departmentService = departmentService;
         }
 
-        var pagedData = data
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .ToList();
+        // ==========================
+        // STUDENT DASHBOARD
+        // ==========================
+        public async Task<IActionResult> Dashboard()
+        {
+            var students = await _studentService.GetAllAsync(); // returns List<StudentDto>
 
-        ViewBag.Search = search;
-        ViewBag.CurrentPage = page;
-        ViewBag.TotalPages = (int)Math.Ceiling(data.Count / (double)pageSize);
+            ViewBag.TotalStudents = students.Count;
+            ViewBag.TotalDepartments = students
+                .Select(x => x.DepartmentName)
+                .Distinct()
+                .Count();
 
-        return View(pagedData);
-    }
+            return View(students); // pass typed List<StudentDto>
+        }
 
-    // ================= CREATE (GET) =================
-    [Authorize(Roles = "Admin,Teacher")]
-    public async Task<IActionResult> Create()
-    {
-        var departments = await _departmentService.GetAllAsync();
+        // ==========================
+        // INDEX
+        // ==========================
+        public async Task<IActionResult> Index(string? search, int page = 1)
+        {
+            const int pageSize = 8;
+            var students = await _studentService.GetAllAsync();
 
-        ViewBag.TotalDepartment = departments.Count;
-        ViewBag.Departments = new SelectList(departments, "Id", "Name");
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.Trim().ToLower();
+                students = students
+                    .Where(x =>
+                        (x.StudentIdCode ?? "").ToLower().Contains(search) ||
+                        (x.Name ?? "").ToLower().Contains(search) ||
+                        (x.Email ?? "").ToLower().Contains(search) ||
+                        (x.DepartmentName ?? "").ToLower().Contains(search)
+                    )
+                    .ToList();
+            }
 
-        return View();
-    }
+            ViewBag.TotalStudents = students.Count;
+            ViewBag.TotalDepartments = students
+                .Select(x => x.DepartmentName)
+                .Distinct()
+                .Count();
 
-    // ================= CREATE (POST) =================
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    [Authorize(Roles = "Admin,Teacher")]
-    public async Task<IActionResult> Create(Student student)
-    {
-        var departments = await _departmentService.GetAllAsync();
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling(students.Count / (double)pageSize);
+            ViewBag.Search = search;
 
-        ViewBag.TotalDepartment = departments.Count;
-        ViewBag.Departments = new SelectList(departments, "Id", "Name", student.DepartmentId);
+            students = students
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
-        // 🔥 basic validation safety
-        if (string.IsNullOrWhiteSpace(student.StudentIdCode))
-            ModelState.AddModelError(nameof(student.StudentIdCode), "Required");
+            return View(students); // typed List<StudentDto>
+        }
 
-        if (string.IsNullOrWhiteSpace(student.Name))
-            ModelState.AddModelError(nameof(student.Name), "Required");
+        // ==========================
+        // CREATE GET
+        // ==========================
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.Departments = new SelectList(
+                await _departmentService.GetAllAsync(),
+                "Id",
+                "Name"
+            );
+            return View();
+        }
 
-        if (string.IsNullOrWhiteSpace(student.Email))
-            ModelState.AddModelError(nameof(student.Email), "Required");
+        // ==========================
+        // CREATE POST
+        // ==========================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<IActionResult> Create(Student student)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Departments = new SelectList(
+                    await _departmentService.GetAllAsync(),
+                    "Id",
+                    "Name",
+                    student.DepartmentId
+                );
+                return View(student);
+            }
 
-        if (student.DepartmentId <= 0)
-            ModelState.AddModelError(nameof(student.DepartmentId), "Select Department");
+            await _studentService.AddAsync(student);
+            TempData["Success"] = "Student Added";
 
-        if (!ModelState.IsValid)
-            return View(student);
+            return RedirectToAction(nameof(Index));
+        }
 
-        await _studentService.AddAsync(student);
-
-        TempData["Success"] = "Student Created Successfully";
-
-        return RedirectToAction(nameof(Index));
-    }
-
-    // ================= EDIT (GET) =================
-    [Authorize(Roles = "Admin,Teacher")]
-    public async Task<IActionResult> Edit(int id)
-    {
-        var student = await _studentService.GetByIdAsync(id);
-
-        if (student == null)
-            return NotFound();
-
-        var departments = await _departmentService.GetAllAsync();
-
-        ViewBag.Departments = new SelectList(
-            departments,
-            "Id",
-            "Name",
-            student.DepartmentId
-        );
-
-        return View(student);
-    }
-
-    // ================= EDIT (POST) =================
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    [Authorize(Roles = "Admin,Teacher")]
-    public async Task<IActionResult> Edit(Student student)
-    {
-        var departments = await _departmentService.GetAllAsync();
-
-        ViewBag.Departments = new SelectList(
-            departments,
-            "Id",
-            "Name",
-            student.DepartmentId
-        );
-
-        if (!ModelState.IsValid)
-            return View(student);
-
-        await _studentService.UpdateAsync(student);
-
-        TempData["Success"] = "Student Updated Successfully";
-
-        return RedirectToAction(nameof(Index));
-    }
-
-    // ================= DELETE =================
-    [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Delete(int id)
-    {
-        await _studentService.DeleteAsync(id);
-
-        TempData["Success"] = "Student Deleted Successfully";
-
-        return RedirectToAction(nameof(Index));
+        // ==========================
+        // DELETE
+        // ==========================
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _studentService.DeleteAsync(id);
+            TempData["Success"] = "Student Deleted";
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

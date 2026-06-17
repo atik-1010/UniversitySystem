@@ -17,3 +17,4 @@
 /Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Infrastructure/obj/Debug/net10.0/UniversitySystem.Infrastructure.pdb
 /Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Infrastructure/obj/Debug/net10.0/UniversitySystem.Infrastructure.genruntimeconfig.cache
 /Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Infrastructure/obj/Debug/net10.0/ref/UniversitySystem.Infrastructure.dll
+/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Infrastructure/obj/Debug/net10.0/UniversitySystem.Infrastructure.sourcelink.json

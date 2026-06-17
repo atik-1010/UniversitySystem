@@ -33,10 +33,8 @@ builder.Services
         options.LoginPath = "/Account/Login";
         options.LogoutPath = "/Account/Logout";
         options.AccessDeniedPath = "/Account/Login";
-
         options.ExpireTimeSpan = TimeSpan.FromHours(2);
         options.SlidingExpiration = true;
-
         options.Cookie.HttpOnly = true;
         options.Cookie.IsEssential = true;
     });
@@ -60,6 +58,11 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<IStudentMarkService, StudentMarkService>();
+
+// 🔥 NEW MODULES
+builder.Services.AddScoped<INoticeService, NoticeService>();
+builder.Services.AddScoped<IAlumniService, AlumniService>();
 
 var app = builder.Build();
 
@@ -82,7 +85,6 @@ else
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
     db.Database.Migrate();
 
     // =========================
@@ -109,7 +111,7 @@ using (var scope = app.Services.CreateScope())
     }
 
     // =========================
-    // 🔥 DEPARTMENT SEED (IMPORTANT FIX)
+    // DEPARTMENT SEED
     // =========================
     if (!db.Departments.Any())
     {
@@ -129,9 +131,7 @@ using (var scope = app.Services.CreateScope())
 // =======================================
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -143,4 +143,7 @@ app.MapControllerRoute(
     pattern: "{controller=Account}/{action=Login}/{id?}"
 );
 
+// =======================================
+// RUN
+// =======================================
 app.Run();

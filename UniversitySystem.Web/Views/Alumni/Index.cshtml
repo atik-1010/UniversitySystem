@@ -1,0 +1,50 @@
+@model IEnumerable<UniversitySystem.Application.DTOs.AlumniDto>
+
+@{
+    ViewData["Title"] = "Alumni List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Alumni List</h2>
+<hr />
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h4>All Alumni</h4>
+        <a asp-action="Create" class="btn btn-success btn-sm float-end">+ Add Alumni</a>
+    </div>
+    <div class="card-body">
+        @if (Model != null && Model.Any())
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Graduation Year</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var alumni in Model)
+                {
+                    <tr>
+                        <td>@alumni.Name</td>
+                        <td>@alumni.Email</td>
+                        <td>@alumni.DepartmentName</td>
+                        <td>@alumni.GraduationYear</td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@alumni.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No alumni found.</p>
+        }
+    </div>
+</div>

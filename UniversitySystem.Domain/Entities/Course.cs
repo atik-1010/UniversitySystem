@@ -1,18 +1,24 @@
-namespace UniversitySystem.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
-public class Course
+namespace UniversitySystem.Domain.Entities
 {
-    public int Id { get; set; }
+    public class Course
+    {
+        public int Id { get; set; }
 
-    public string Title { get; set; } = "";
+        [Required]
+        public string Title { get; set; } = "";
 
-    public string Code { get; set; } = "";
+        [Required]
+        public string Code { get; set; } = "";
 
-    public int Credit { get; set; }
+        [Required]
+        public double Credit { get; set; }
 
-    // FK
-    public int DepartmentId { get; set; }
+        // Foreign Key
+        public int DepartmentId { get; set; }
 
-    // Navigation
-    public Department? Department { get; set; }
+        // Navigation property
+        public Department? Department { get; set; }
+    }
 }

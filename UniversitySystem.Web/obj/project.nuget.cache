@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "SpL+G9W1YdM=",
+  "dgSpecHash": "6jyiWylRwPk=",
   "success": true,
   "projectFilePath": "/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/UniversitySystem.Web.csproj",
   "expectedPackageFiles": [
@@ -43,6 +43,7 @@
     "/Users/bappy/.nuget/packages/microsoft.sqlserver.server/1.0.0/microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "/Users/bappy/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "/Users/bappy/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/Users/bappy/.nuget/packages/rotativa.aspnetcore/1.4.0/rotativa.aspnetcore.1.4.0.nupkg.sha512",
     "/Users/bappy/.nuget/packages/system.codedom/4.4.0/system.codedom.4.4.0.nupkg.sha512",
     "/Users/bappy/.nuget/packages/system.composition/6.0.0/system.composition.6.0.0.nupkg.sha512",
     "/Users/bappy/.nuget/packages/system.composition.attributedmodel/6.0.0/system.composition.attributedmodel.6.0.0.nupkg.sha512",

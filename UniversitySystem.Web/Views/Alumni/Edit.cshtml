@@ -1,0 +1,41 @@
+@model UniversitySystem.Application.DTOs.AlumniDto
+
+@{
+    ViewData["Title"] = "Edit Alumni";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Alumni</h2>
+<hr />
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" type="email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DepartmentId" class="form-label">Department</label>
+        <select asp-for="DepartmentId" class="form-select"
+                asp-items="ViewBag.Departments"></select>
+        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GraduationYear" class="form-label"></label>
+        <input asp-for="GraduationYear" type="number" class="form-control" />
+        <span asp-validation-for="GraduationYear" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

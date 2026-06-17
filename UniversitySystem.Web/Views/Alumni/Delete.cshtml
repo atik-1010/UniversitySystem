@@ -1,0 +1,28 @@
+@model UniversitySystem.Application.DTOs.AlumniDto
+
+@{
+    ViewData["Title"] = "Delete Alumni";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete Alumni</h2>
+<hr />
+
+<div class="alert alert-danger">
+    <strong>Are you sure you want to delete this alumni record?</strong>
+</div>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <p><strong>Name:</strong> @Model.Name</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Department:</strong> @Model.DepartmentName</p>
+        <p><strong>Graduation Year:</strong> @Model.GraduationYear</p>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
