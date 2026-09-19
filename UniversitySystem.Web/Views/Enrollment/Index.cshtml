@@ -1,0 +1,46 @@
+@using UniversitySystem.Application.DTOs
+@model IEnumerable<EnrollmentDto>
+
+@{
+    ViewData["Title"] = "All Enrollments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All Enrollments</h2>
+<hr />
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Enrolled On</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var enrollment in Model)
+        {
+            <tr>
+                <td>@enrollment.StudentName</td>
+                <td>@enrollment.CourseTitle</td>
+                <td>
+                    @enrollment.EnrolledOn.ToString("yyyy-MM-dd")
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@enrollment.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@enrollment.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info text-center">
+        No enrollments available.
+    </div>
+}

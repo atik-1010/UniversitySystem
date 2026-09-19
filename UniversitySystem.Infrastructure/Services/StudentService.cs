@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using UniversitySystem.Application.DTOs;
 using UniversitySystem.Application.Interfaces;
@@ -92,5 +93,10 @@ public class StudentService : IStudentService
 
         _context.Students.Remove(student);
         await _context.SaveChangesAsync();
+    }
+
+    public Task<object> GetCurrentStudentIdAsync(ClaimsPrincipal user)
+    {
+        throw new NotImplementedException();
     }
 }

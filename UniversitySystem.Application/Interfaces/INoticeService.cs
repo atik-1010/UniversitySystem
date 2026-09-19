@@ -1,4 +1,5 @@
 using UniversitySystem.Application.DTOs;
+using UniversitySystem.Domain.Entities;
 
 namespace UniversitySystem.Application.Interfaces
 {
@@ -9,5 +10,8 @@ namespace UniversitySystem.Application.Interfaces
         Task CreateAsync(NoticeDto dto);
         Task DeleteAsync(int id);
         Task EditAsync(NoticeDto dto);
+        Task<List<NoticeDto>> GetLatestAsync(int i);
+        Task AddAsync(Notice notice);
+        Task UpdateAsync(Notice notice);
     }
 }

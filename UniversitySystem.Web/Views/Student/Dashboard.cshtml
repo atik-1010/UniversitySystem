@@ -1,64 +1,50 @@
 @using UniversitySystem.Application.DTOs
-@model IEnumerable<StudentDto>
+@model IEnumerable<CourseDto>
+
 @{
     ViewData["Title"] = "Student Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Student Dashboard</h2>
+<h2>Available Courses (Department-wise)</h2>
 <hr />
 
-<div class="row mb-4">
-    <div class="col-md-4">
-        <div class="card bg-primary text-white">
-            <div class="card-body">
-                <h5>Total Students</h5>
-                <p>@ViewBag.TotalStudents</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card bg-success text-white">
-            <div class="card-body">
-                <h5>Departments</h5>
-                <p>@ViewBag.TotalDepartments</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card mt-4">
-    <div class="card-header">
-        <h4>Student List</h4>
-    </div>
-    <div class="card-body">
-        @if (Model != null && Model.Any())
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Code</th>
+            <th>Credit</th>
+            <th>Department</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var course in Model)
         {
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Department</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var student in Model)
-                {
-                    <tr>
-                        <td>@student.StudentIdCode</td>
-                        <td>@student.Name</td>
-                        <td>@student.Email</td>
-                        <td>@student.DepartmentName</td>
-                    </tr>
-                }
-                </tbody>
-            </table>
+            <tr>
+                <td>@course.Title</td>
+                <td>@course.Code</td>
+                <td>@course.Credit</td>
+                <td>@course.DepartmentName</td>
+                <td>
+                    <a asp-controller="Enrollment"
+                       asp-action="Enroll"
+                       asp-route-courseId="@course.Id"
+                       class="btn btn-primary btn-sm">
+                        Enroll
+                    </a>
+                </td>
+            </tr>
         }
-        else
-        {
-            <p>No students found.</p>
-        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info text-center">
+        No courses available for your department.
     </div>
-</div>
+}

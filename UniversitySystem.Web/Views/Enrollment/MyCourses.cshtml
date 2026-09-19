@@ -1,0 +1,46 @@
+@using UniversitySystem.Application.DTOs
+@model IEnumerable<CourseDto>
+
+@{
+    ViewData["Title"] = "My Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Courses</h2>
+<hr />
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Course Title</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.Title</td>
+                <td>@course.DepartmentName</td>
+                <td>
+                    <a asp-controller="Enrollment"
+                       asp-action="UnEnroll"
+                       asp-route-courseId="@course.Id"
+                       class="btn btn-danger btn-sm">
+                        UnEnroll
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info text-center">
+        You are not enrolled in any courses.
+    </div>
+}

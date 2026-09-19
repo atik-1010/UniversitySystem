@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UniversitySystem.Application.Interfaces;
+using UniversitySystem.Application.Services;
 using UniversitySystem.Domain.Entities;
 using UniversitySystem.Infrastructure.Data;
 using UniversitySystem.Infrastructure.Services;
@@ -59,10 +60,12 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IStudentMarkService, StudentMarkService>();
-
-// 🔥 NEW MODULES
 builder.Services.AddScoped<INoticeService, NoticeService>();
 builder.Services.AddScoped<IAlumniService, AlumniService>();
+builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+
+// ✅ Future expansion (optional)
+// builder.Services.AddScoped<IResultService, ResultService>();
 
 var app = builder.Build();
 
@@ -122,6 +125,18 @@ using (var scope = app.Services.CreateScope())
             new Department { Name = "Law" }
         );
 
+        db.SaveChanges();
+    }
+
+    // ✅ Optional: Notice seed
+    if (!db.Notices.Any())
+    {
+        db.Notices.Add(new Notice
+        {
+            Title = "Welcome Notice",
+            Description = "System initialized successfully",
+            Date = DateTime.Now
+        });
         db.SaveChanges();
     }
 }

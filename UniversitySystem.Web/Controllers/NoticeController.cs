@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversitySystem.Application.Interfaces;
 using UniversitySystem.Application.DTOs;
+using UniversitySystem.Domain.Entities;
 
 namespace UniversitySystem.Web.Controllers
 {
@@ -15,24 +16,53 @@ namespace UniversitySystem.Web.Controllers
             _noticeService = noticeService;
         }
 
+        // ==========================
+        // INDEX (All Notices)
+        // ==========================
         public async Task<IActionResult> Index()
         {
             var notices = await _noticeService.GetAllAsync();
-            return View(notices);
+            return View(notices); // typed List<NoticeDto>
         }
 
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult Create() => View();
+        // ==========================
+        // DETAILS
+        // ==========================
+        public async Task<IActionResult> Details(int id)
+        {
+            var notice = await _noticeService.GetByIdAsync(id);
+            if (notice == null)
+            {
+                TempData["Error"] = "Notice not found.";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(notice);
+        }
 
+        // ==========================
+        // CREATE GET
+        // ==========================
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // ==========================
+        // CREATE POST
+        // ==========================
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> Create(NoticeDto dto)
+        public async Task<IActionResult> Create(Notice notice)
         {
-            if (!ModelState.IsValid) return View(dto);
+            if (!ModelState.IsValid)
+            {
+                return View(notice);
+            }
 
-            await _noticeService.CreateAsync(dto);
-            TempData["Success"] = "Notice Added";
+            await _noticeService.AddAsync(notice);
+            TempData["Success"] = "Notice created successfully.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -43,7 +73,11 @@ namespace UniversitySystem.Web.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var notice = await _noticeService.GetByIdAsync(id);
-            if (notice == null) return NotFound();
+            if (notice == null)
+            {
+                TempData["Error"] = "Notice not found.";
+                return RedirectToAction(nameof(Index));
+            }
             return View(notice);
         }
 
@@ -53,30 +87,26 @@ namespace UniversitySystem.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Teacher")]
-        public async Task<IActionResult> Edit(NoticeDto dto)
+        public async Task<IActionResult> Edit(Notice notice)
         {
-            if (!ModelState.IsValid) return View(dto);
+            if (!ModelState.IsValid)
+            {
+                return View(notice);
+            }
 
-            await _noticeService.EditAsync(dto);
-            TempData["Success"] = "Notice Updated";
+            await _noticeService.UpdateAsync(notice);
+            TempData["Success"] = "Notice updated successfully.";
             return RedirectToAction(nameof(Index));
         }
 
+        // ==========================
+        // DELETE
+        // ==========================
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var notice = await _noticeService.GetByIdAsync(id);
-            if (notice == null) return NotFound();
-            return View(notice);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
             await _noticeService.DeleteAsync(id);
-            TempData["Success"] = "Notice Deleted";
+            TempData["Success"] = "Notice deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
     }

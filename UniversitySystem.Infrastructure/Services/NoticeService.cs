@@ -69,6 +69,21 @@ namespace UniversitySystem.Infrastructure.Services
             }
         }
 
+        public Task<List<NoticeDto>> GetLatestAsync(int i)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddAsync(Notice notice)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(Notice notice)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task DeleteAsync(int id)
         {
             var notice = await _context.Notices.FindAsync(id);

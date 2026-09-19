@@ -24,5 +24,8 @@ namespace UniversitySystem.Domain.Entities
 
         // Marks system
         public ICollection<StudentMark> StudentMarks { get; set; } = new List<StudentMark>();
+        // Navigation property
+        public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+        public string StudentCode { get; set; }
     }
 }

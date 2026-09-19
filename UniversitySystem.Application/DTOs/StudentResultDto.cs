@@ -1,26 +1,17 @@
-namespace UniversitySystem.Application.DTOs;
-
-public class StudentResultDto
+namespace UniversitySystem.Application.DTOs
 {
-    public string StudentName { get; set; } = "";
+    public class StudentResultDto
+    {
+        public int StudentId { get; set; }
+        public string StudentName { get; set; } = "";
+        public string StudentIdCode { get; set; } = "";
 
-    public string StudentIdCode { get; set; } = "";
+        // GPA and Final Grade
+        public double GPA { get; set; }
+        public string FinalGrade { get; set; } = "";
 
-    public List<ResultRowDto> Results { get; set; }
-        = new();
-
-    public double GPA { get; set; }
-
-    public string FinalGrade { get; set; } = "";
-}
-
-public class ResultRowDto
-{
-    public string Course { get; set; } = "";
-
-    public int Marks { get; set; }
-
-    public double GradePoint { get; set; }
-
-    public string Grade { get; set; } = "";
+        // List of marks per course
+        public List<StudentMarkDto> Results { get; set; } = new();
+        public List<StudentMarkDto> Marks { get; set; }
+    }
 }

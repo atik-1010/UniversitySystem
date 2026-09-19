@@ -1,0 +1,36 @@
+@using UniversitySystem.Application.DTOs
+@model NoticeDto
+
+@{
+    ViewData["Title"] = "Notice Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Notice Details</h2>
+<hr />
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Title</h4>
+        <p class="card-text">@Model.Message</p>
+        <p class="text-muted">
+            <i class="fa fa-calendar"></i> Posted on: @($"{Model.CreatedOn:yyyy-MM-dd}")
+        </p>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fa fa-arrow-left"></i> Back to Notices
+    </a>
+
+    @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+            <i class="fa fa-edit"></i> Edit
+        </a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+            <i class="fa fa-trash"></i> Delete
+        </a>
+    }
+</div>

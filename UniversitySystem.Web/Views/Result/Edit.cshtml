@@ -1,0 +1,55 @@
+@using UniversitySystem.Application.DTOs
+@model UniversitySystem.Application.DTOs.StudentMarkDto
+
+@{
+    ViewData["Title"] = "Edit Student Marks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">✏️ Edit Student Marks</h2>
+
+<div class="card shadow-sm p-4">
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="StudentId" />
+
+        <div class="mb-3">
+            <label asp-for="StudentName" class="form-label"></label>
+            <input asp-for="StudentName" class="form-control" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CourseTitle" class="form-label"></label>
+            <input asp-for="CourseTitle" class="form-control" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Score" class="form-label"></label>
+            <input asp-for="Score" class="form-control" type="number" min="0" max="100" />
+            <span asp-validation-for="Score" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="GradePoint" class="form-label"></label>
+            <input asp-for="GradePoint" class="form-control" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Grade" class="form-label"></label>
+            <input asp-for="Grade" class="form-control" readonly />
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-save"></i> Save
+            </button>
+            <a asp-action="Index" asp-route-studentId="@Model.StudentId" class="btn btn-secondary">
+                <i class="fa fa-arrow-left"></i> Back
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

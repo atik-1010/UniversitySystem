@@ -1,96 +1,102 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using UniversitySystem.Application.Interfaces;
-using UniversitySystem.Application.DTOs; // use DTOs
-using UniversitySystem.Infrastructure.Data;
+using UniversitySystem.Application.DTOs;
 
 namespace UniversitySystem.Web.Controllers
 {
     public class CourseController : Controller
     {
         private readonly ICourseService _courseService;
-        private readonly AppDbContext _context;
 
-        public CourseController(ICourseService courseService, AppDbContext context)
+        public CourseController(ICourseService courseService)
         {
             _courseService = courseService;
-            _context = context;
         }
 
-        // ==========================
-        // INDEX
-        // ==========================
+        // GET: Course
         public async Task<IActionResult> Index()
         {
-            var data = await _courseService.GetAllAsync(); // returns List<CourseDto>
-            return View(data);
+            var courses = await _courseService.GetAllAsync();
+            return View(courses);
         }
 
-        // ==========================
-        // CREATE GET
-        // ==========================
+        // GET: Course/Details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            var course = await _courseService.GetByIdAsync(id);
+            if (course == null) return NotFound();
+            return View(course);
+        }
+
+        // GET: Course/Create
         public IActionResult Create()
         {
-            ViewBag.Departments = new SelectList(_context.Departments, "Id", "Name");
             return View();
         }
 
-        // ==========================
-        // CREATE POST
-        // ==========================
+        // POST: Course/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CourseDto course)
+        public async Task<IActionResult> Create(CourseDto dto)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ViewBag.Departments = new SelectList(_context.Departments, "Id", "Name", course.DepartmentId);
-                return View(course);
+                await _courseService.CreateAsync(dto);
+                return RedirectToAction(nameof(Index));
             }
-
-            await _courseService.CreateAsync(course);
-            TempData["Success"] = "Course Added";
-            return RedirectToAction(nameof(Index));
+            return View(dto);
         }
 
-        // ==========================
-        // EDIT GET
-        // ==========================
+        // GET: Course/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
             var course = await _courseService.GetByIdAsync(id);
             if (course == null) return NotFound();
-
-            ViewBag.Departments = new SelectList(_context.Departments, "Id", "Name", course.DepartmentId);
             return View(course);
         }
 
-        // ==========================
-        // EDIT POST
-        // ==========================
+        // POST: Course/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CourseDto course)
+        public async Task<IActionResult> Edit(CourseDto dto)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ViewBag.Departments = new SelectList(_context.Departments, "Id", "Name", course.DepartmentId);
-                return View(course);
+                await _courseService.UpdateAsync(dto);
+                return RedirectToAction(nameof(Index));
             }
+            return View(dto);
+        }
 
-            await _courseService.UpdateAsync(course);
-            TempData["Success"] = "Course Updated";
+        // GET: Course/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            var course = await _courseService.GetByIdAsync(id);
+            if (course == null) return NotFound();
+            return View(course);
+        }
+
+        // POST: Course/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _courseService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        // ==========================
-        // DELETE
-        // ==========================
-        public async Task<IActionResult> Delete(int id)
+        // GET: Course/ByDepartment/3
+        public async Task<IActionResult> ByDepartment(int departmentId)
         {
-            await _courseService.DeleteAsync(id);
-            TempData["Success"] = "Course Deleted";
-            return RedirectToAction(nameof(Index));
+            var courses = await _courseService.GetByDepartmentAsync(departmentId);
+            return View("Index", courses);
+        }
+
+        // GET: Course/ByStudent/10
+        public async Task<IActionResult> ByStudent(int studentId)
+        {
+            var courses = await _courseService.GetByStudentIdAsync(studentId);
+            return View("Index", courses);
         }
     }
 }

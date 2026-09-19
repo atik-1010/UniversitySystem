@@ -1,4 +1,5 @@
 using UniversitySystem.Application.DTOs;
+using UniversitySystem.Domain.Entities;
 
 namespace UniversitySystem.Application.Interfaces
 {
@@ -9,5 +10,7 @@ namespace UniversitySystem.Application.Interfaces
         Task CreateAsync(AlumniDto dto);
         Task DeleteAsync(int id);
         Task EditAsync(AlumniDto dto);
+        Task AddAsync(Alumni alumni);
+        Task UpdateAsync(Alumni alumni);
     }
 }

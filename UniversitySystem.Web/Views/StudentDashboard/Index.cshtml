@@ -1,0 +1,88 @@
+@using UniversitySystem.Application.DTOs
+@model StudentDashboardDto
+
+@{
+    ViewData["Title"] = "Student Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Student Dashboard</h2>
+<hr />
+
+<div class="row">
+    <!-- Notices Section -->
+    <div class="col-md-4">
+        <h4>Latest Notices</h4>
+        <ul class="list-group">
+            @if (Model.Notices != null && Model.Notices.Any())
+            {
+                foreach (var notice in Model.Notices.Take(5))
+                {
+                    <li class="list-group-item">
+                        <strong>@notice.Title</strong><br />
+                        <span class="text-muted">
+                            @(notice.CreatedOn.HasValue 
+                                ? notice.CreatedOn.Value.ToString("yyyy-MM-dd") 
+                                : "")
+                        </span>
+                    </li>
+                }
+            }
+            else
+            {
+                <li class="list-group-item text-muted">No notices available.</li>
+            }
+        </ul>
+    </div>
+
+    <!-- Courses Section -->
+    <div class="col-md-4">
+        <h4>My Courses</h4>
+        <ul class="list-group">
+            @if (Model.Courses != null && Model.Courses.Any())
+            {
+                foreach (var course in Model.Courses)
+                {
+                    <li class="list-group-item">
+                        @course.Title (@course.DepartmentName)
+                    </li>
+                }
+            }
+            else
+            {
+                <li class="list-group-item text-muted">No courses enrolled.</li>
+            }
+        </ul>
+    </div>
+
+    <!-- Marks Section -->
+    <div class="col-md-4">
+        <h4>My Marks</h4>
+        <table class="table table-sm table-bordered">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Marks != null && Model.Marks.Any())
+                {
+                    foreach (var mark in Model.Marks)
+                    {
+                        <tr>
+                            <td>@mark.CourseTitle</td>
+                            <td>@mark.Score</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2" class="text-muted text-center">No marks available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -6,14 +6,10 @@ using UniversitySystem.Infrastructure.Data;
 
 namespace UniversitySystem.Infrastructure.Services
 {
-    public class CourseService : ICourseService
+    // ✅ Primary constructor style
+    public class CourseService(AppDbContext context) : ICourseService
     {
-        private readonly AppDbContext _context;
-
-        public CourseService(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
 
         // GET ALL
         public async Task<List<CourseDto>> GetAllAsync()
@@ -48,7 +44,7 @@ namespace UniversitySystem.Infrastructure.Services
                 Code = course.Code,
                 Credit = course.Credit,
                 DepartmentId = course.DepartmentId,
-                DepartmentName = course.Department?.Name
+                DepartmentName = course.Department?.Name ?? string.Empty
             };
         }
 
@@ -59,7 +55,7 @@ namespace UniversitySystem.Infrastructure.Services
             {
                 Title = dto.Title ?? string.Empty,
                 Code = dto.Code ?? string.Empty,
-                Credit = dto.Credit,
+                Credit = dto.Credit, // ✅ int type
                 DepartmentId = dto.DepartmentId
             };
 
@@ -75,8 +71,8 @@ namespace UniversitySystem.Infrastructure.Services
 
             course.Title = dto.Title ?? string.Empty;
             course.Code = dto.Code ?? string.Empty;
-            course.Credit = dto.Credit;
-            course.DepartmentId = dto.DepartmentId;
+            course.Credit = (int)dto.Credit; // ✅ int type
+            course.DepartmentId = (int)dto.DepartmentId;
 
             _context.Courses.Update(course);
             await _context.SaveChangesAsync();
@@ -91,6 +87,45 @@ namespace UniversitySystem.Infrastructure.Services
                 _context.Courses.Remove(course);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        // GET BY DEPARTMENT
+        public async Task<List<CourseDto>> GetByDepartmentAsync(int departmentId)
+        {
+            return await _context.Courses
+                .Include(x => x.Department)
+                .Where(x => x.DepartmentId == departmentId)
+                .Select(x => new CourseDto
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Code = x.Code,
+                    Credit = x.Credit,
+                    DepartmentId = x.DepartmentId,
+                    DepartmentName = x.Department != null ? x.Department.Name : string.Empty
+                })
+                .ToListAsync();
+        }
+
+        // GET BY STUDENT
+        public async Task<List<CourseDto>> GetByStudentIdAsync(object studentId)
+        {
+            int sid = Convert.ToInt32(studentId);
+
+            return await _context.Enrollments
+                .Include(e => e.Course)
+                .ThenInclude(c => c.Department)
+                .Where(e => e.StudentId == sid)
+                .Select(e => new CourseDto
+                {
+                    Id = e.Course.Id,
+                    Title = e.Course.Title,
+                    Code = e.Course.Code,
+                    Credit = e.Course.Credit,
+                    DepartmentId = e.Course.DepartmentId,
+                    DepartmentName = e.Course.Department != null ? e.Course.Department.Name : string.Empty
+                })
+                .ToListAsync();
         }
     }
 }

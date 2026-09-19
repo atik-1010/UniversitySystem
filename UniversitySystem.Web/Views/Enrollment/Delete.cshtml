@@ -1,0 +1,30 @@
+@using UniversitySystem.Application.DTOs
+@model EnrollmentDto
+
+@{
+    ViewData["Title"] = "Delete Enrollment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete Enrollment</h2>
+<hr />
+
+<div class="alert alert-danger">
+    <strong>Are you sure you want to delete this enrollment record?</strong>
+</div>
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <p><strong>Student:</strong> @Model.StudentName</p>
+        <p><strong>Course:</strong> @Model.CourseTitle</p>
+        <p><strong>Enrolled On:</strong> @Model.EnrolledOn.ToString("yyyy-MM-dd")</p>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">
+        <i class="fa fa-trash"></i> Confirm Delete
+    </button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

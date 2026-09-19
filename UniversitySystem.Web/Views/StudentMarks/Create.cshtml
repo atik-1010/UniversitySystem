@@ -1,0 +1,51 @@
+@using UniversitySystem.Domain.Entities
+@model StudentMark
+
+@{
+    ViewData["Title"] = "Add Student Mark";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Student Mark</h2>
+<hr />
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="StudentId" class="form-label"></label>
+        <input asp-for="StudentId" type="number" class="form-control" />
+        <span asp-validation-for="StudentId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CourseId" class="form-label"></label>
+        <input asp-for="CourseId" type="number" class="form-control" />
+        <span asp-validation-for="CourseId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Score" class="form-label"></label>
+        <input asp-for="Score" type="number" class="form-control" />
+        <span asp-validation-for="Score" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GradePoint" class="form-label"></label>
+        <input asp-for="GradePoint" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="GradePoint" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Grade" class="form-label"></label>
+        <input asp-for="Grade" class="form-control" />
+        <span asp-validation-for="Grade" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        <i class="fa fa-save"></i> Save
+    </button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

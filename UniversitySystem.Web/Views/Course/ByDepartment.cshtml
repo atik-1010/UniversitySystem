@@ -1,0 +1,20 @@
+@model List<UniversitySystem.Application.DTOs.CourseDto>
+
+<h2>Courses by Department</h2>
+<table border="1" style="width:100%; border-collapse:collapse;">
+    <tr>
+        <th>Title</th>
+        <th>Code</th>
+        <th>Credit</th>
+        <th>Department</th>
+    </tr>
+    @foreach (var course in Model)
+    {
+        <tr>
+            <td>@course.Title</td>
+            <td>@course.Code</td>
+            <td>@course.Credit</td>
+            <td>@course.DepartmentName</td>
+        </tr>
+    }
+</table>

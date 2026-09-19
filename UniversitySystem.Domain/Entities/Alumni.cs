@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UniversitySystem.Domain.Entities
 {
@@ -7,20 +8,20 @@ namespace UniversitySystem.Domain.Entities
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100)]
         public string Name { get; set; } = "";
 
         [Required]
-        [EmailAddress]
         public string Email { get; set; } = "";
 
         [Required]
-        public int DepartmentId { get; set; }
-
-        public Department? Department { get; set; }
-
-        [Required]
-        [Range(1950, 2100)]
         public int GraduationYear { get; set; }
+
+        // Foreign key
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; } = null!;
+
+        // ✅ If you want DepartmentName only for view, mark it NotMapped
+        [NotMapped]
+        public string DepartmentName => Department?.Name ?? string.Empty;
     }
 }

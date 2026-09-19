@@ -18,6 +18,7 @@ namespace UniversitySystem.Infrastructure.Data
         public DbSet<StudentMark> StudentMarks { get; set; }
         public DbSet<Notice> Notices { get; set; }
         public DbSet<Alumni> Alumni { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,13 +28,14 @@ namespace UniversitySystem.Infrastructure.Data
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.HasKey(x => x.Id);
-                entity.Property(x => x.StudentIdCode).IsRequired();
+                entity.Property(x => x.StudentCode).IsRequired();
                 entity.Property(x => x.Name).IsRequired();
                 entity.Property(x => x.Email).IsRequired();
 
                 entity.HasOne(x => x.Department)
                     .WithMany(x => x.Students)
-                    .HasForeignKey(x => x.DepartmentId);
+                    .HasForeignKey(x => x.DepartmentId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             // Course
@@ -46,7 +48,8 @@ namespace UniversitySystem.Infrastructure.Data
 
                 entity.HasOne(x => x.Department)
                     .WithMany(x => x.Courses)
-                    .HasForeignKey(x => x.DepartmentId);
+                    .HasForeignKey(x => x.DepartmentId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             // Teacher
@@ -57,22 +60,27 @@ namespace UniversitySystem.Infrastructure.Data
 
                 entity.HasOne(x => x.Department)
                     .WithMany(x => x.Teachers)
-                    .HasForeignKey(x => x.DepartmentId);
+                    .HasForeignKey(x => x.DepartmentId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             // StudentMark
             modelBuilder.Entity<StudentMark>(entity =>
             {
                 entity.HasKey(x => x.Id);
-                entity.Property(x => x.Marks).IsRequired();
+                entity.Property(x => x.Score).IsRequired();
+                entity.Property(x => x.GradePoint).IsRequired();
+                entity.Property(x => x.Grade).IsRequired();
 
                 entity.HasOne(x => x.Student)
                     .WithMany(x => x.StudentMarks)
-                    .HasForeignKey(x => x.StudentId);
+                    .HasForeignKey(x => x.StudentId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(x => x.Course)
                     .WithMany()
-                    .HasForeignKey(x => x.CourseId);
+                    .HasForeignKey(x => x.CourseId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             // AppUser
@@ -101,7 +109,30 @@ namespace UniversitySystem.Infrastructure.Data
 
                 entity.HasOne(x => x.Department)
                     .WithMany()
-                    .HasForeignKey(x => x.DepartmentId);
+                    .HasForeignKey(x => x.DepartmentId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // Enrollment
+            modelBuilder.Entity<Enrollment>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+
+                entity.Property(x => x.Marks).IsRequired();
+
+                entity.HasOne(x => x.Student)
+                    .WithMany(x => x.Enrollments)
+                    .HasForeignKey(x => x.StudentId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(x => x.Course)
+                    .WithMany(x => x.Enrollments)
+                    .HasForeignKey(x => x.CourseId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.Property(x => x.EnrolledOn)
+                      .IsRequired()
+                      .HasDefaultValueSql("GETDATE()");
             });
         }
     }

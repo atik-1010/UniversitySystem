@@ -79,6 +79,16 @@ namespace UniversitySystem.Infrastructure.Services
             }
         }
 
+        public Task AddAsync(Alumni alumni)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(Alumni alumni)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task DeleteAsync(int id)
         {
             var alumni = await _context.Alumni.FindAsync(id);

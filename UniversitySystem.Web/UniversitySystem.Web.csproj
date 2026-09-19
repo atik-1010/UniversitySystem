@@ -7,22 +7,32 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UniversitySystem.Application\UniversitySystem.Application.csproj" />
-      <ProjectReference Include="..\UniversitySystem.Infrastructure\UniversitySystem.Infrastructure.csproj" />
+        <ProjectReference Include="..\UniversitySystem.Application\UniversitySystem.Application.csproj" />
+        <ProjectReference Include="..\UniversitySystem.Infrastructure\UniversitySystem.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
-      <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
-      <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.3.10" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.3.11" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Rotativa.AspNetCore" Version="1.4.0" />
+        <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
+
+        <!-- ❌ Removed unnecessary PackageReferences -->
+        <!-- <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" /> -->
+        <!-- <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.3.10" /> -->
+        <!-- <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.3.11" /> -->
+
+        <!-- ✅ Use FrameworkReference instead -->
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Rotativa.AspNetCore" Version="1.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="Views\Marks\Create.cshtml" />
     </ItemGroup>
 
 </Project>

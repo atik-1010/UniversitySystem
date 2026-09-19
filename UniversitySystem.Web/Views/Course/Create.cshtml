@@ -1,18 +1,45 @@
-@model UniversitySystem.Domain.Entities.Course
+@using UniversitySystem.Application.DTOs
+@model CourseDto
+
+@{
+    ViewData["Title"] = "Create Course";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <h2>Create Course</h2>
+<hr />
 
-<form method="post">
-    <input name="Title" placeholder="Title" />
-    <input name="Code" placeholder="Code" />
-    <input name="Credit" placeholder="Credit" />
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
 
-    <select name="DepartmentId">
-        @foreach (var d in ViewBag.Departments)
-        {
-            <option value="@d.Id">@d.Name</option>
-        }
-    </select>
+    <div class="mb-3">
+        <label asp-for="Code" class="form-label"></label>
+        <input asp-for="Code" class="form-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
 
-    <button type="submit">Save</button>
+    <div class="mb-3">
+        <label asp-for="Credit" class="form-label"></label>
+        <input asp-for="Credit" type="number" class="form-control" />
+        <span asp-validation-for="Credit" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DepartmentId" class="form-label"></label>
+        <input asp-for="DepartmentId" type="number" class="form-control" />
+        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        <i class="fa fa-save"></i> Save
+    </button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

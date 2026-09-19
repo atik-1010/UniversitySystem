@@ -1,100 +1,72 @@
+@using UniversitySystem.Application.DTOs
 @model UniversitySystem.Application.DTOs.StudentResultDto
 
+@{
+    Layout = null; // Print-friendly standalone page
+}
+
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
-    <title>
-        Result Sheet
-    </title>
-
+    <meta charset="utf-8" />
+    <title>Official Transcript - @Model.StudentName</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1, h2, h3, h4 { margin: 5px 0; text-align: center; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .footer { margin-top: 40px; text-align: center; font-size: 12px; color: gray; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        .print-btn { margin-top: 20px; text-align: center; }
+    </style>
 </head>
+<body>
+    <div class="header">
+        <h1>🏛 University Management System</h1>
+        <h2>Official Academic Transcript</h2>
+        <hr />
+    </div>
 
-<body
-    onload="window.print()">
+    <h3>Student: @Model.StudentName</h3>
+    <h4>ID: @Model.StudentIdCode</h4>
 
-<h1>
+    <h2>
+        GPA: <span style="color:green;">@Model.GPA.ToString("0.00")</span>
+    </h2>
 
-    UNIVERSITY RESULT
+    <h2>
+        Final Grade: <span style="color:blue;">@Model.FinalGrade</span>
+    </h2>
 
-</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Marks</th>
+                <th>Grade</th>
+                <th>Grade Point</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.Results)
+            {
+                <tr>
+                    <td>@(row.CourseTitle ?? "N/A")</td>
+                    <td>@row.Score</td>
+                    <td>@row.Grade</td>
+                    <td>@row.GradePoint.ToString("0.00")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<hr>
+    <div class="print-btn">
+        <button onclick="window.print()">🖨 Print Transcript</button>
+    </div>
 
-<h3>
-
-    Student:
-    @Model.StudentName
-
-</h3>
-
-<h3>
-
-    ID:
-    @Model.StudentIdCode
-
-</h3>
-
-<h2>
-
-    GPA:
-    @Model.GPA
-
-</h2>
-
-<h2>
-
-    GRADE:
-    @Model.FinalGrade
-
-</h2>
-
-<table
-    border="1"
-    width="100%">
-
-    <tr>
-
-        <th>
-            Course
-        </th>
-
-        <th>
-            Marks
-        </th>
-
-        <th>
-            Grade
-        </th>
-
-    </tr>
-
-    @foreach (
-        var r
-        in Model.Results
-    )
-    {
-        <tr>
-
-            <td>
-                @r.Course
-            </td>
-
-            <td>
-                @r.Marks
-            </td>
-
-            <td>
-                @r.Grade
-            </td>
-
-        </tr>
-    }
-
-</table>
-
+    <div class="footer">
+        Certified by Admin • Generated on @DateTime.Now.ToString("yyyy-MM-dd HH:mm")
+    </div>
 </body>
-
 </html>

@@ -47,6 +47,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWx1bW5pL0RlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Alumni/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWx1bW5pL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Alumni/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWx1bW5pL0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -55,8 +59,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWx1bW5pL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Course/ByDepartment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0J5RGVwYXJ0bWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Course/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Course/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Course/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ291cnNlL0RldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Course/Edit.cshtml]
@@ -79,16 +95,36 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVwYXJ0bWVudC9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Enrollment/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5yb2xsbWVudC9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Enrollment/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5yb2xsbWVudC9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Enrollment/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5yb2xsbWVudC9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Enrollment/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5yb2xsbWVudC9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Enrollment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5yb2xsbWVudC9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Enrollment/MyCourses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5yb2xsbWVudC9NeUNvdXJzZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Marks/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWFya3MvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Notice/Create.cshtml]
@@ -99,12 +135,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTm90aWNlL0RlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Notice/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTm90aWNlL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Notice/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTm90aWNlL0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Notice/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTm90aWNlL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Result/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVzdWx0L0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Result/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmVzdWx0L0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Result/Index.cshtml]
@@ -141,6 +189,30 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Student/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudC9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/StudentDashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudERhc2hib2FyZC9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/StudentMarks/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1hcmtzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/StudentMarks/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1hcmtzL0RlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/StudentMarks/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1hcmtzL0VkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/StudentMarks/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1hcmtzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/StudentMarks/Result.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3R1ZGVudE1hcmtzL1Jlc3VsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/bappy/Documents/Projects/UniversitySystem/UniversitySystem.Web/Views/Teacher/Create.cshtml]

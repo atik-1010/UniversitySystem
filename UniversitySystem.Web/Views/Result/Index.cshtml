@@ -1,102 +1,64 @@
+@using UniversitySystem.Application.DTOs
 @model UniversitySystem.Application.DTOs.StudentResultDto
 
-<h1>🎓 Academic Transcript</h1>
+<h1 class="mb-4">🎓 Academic Transcript</h1>
 
-<hr>
+<div class="mb-3">
+    <h4>Student: <span class="text-primary">@Model.StudentName</span></h4>
+    <h5>ID: <span class="text-muted">@Model.StudentIdCode</span></h5>
+</div>
 
-<h3>
-    Student:
-    @Model.StudentName
-</h3>
+<div class="mb-3">
+    <h4>
+        GPA: <span class="text-success">@Model.GPA.ToString("0.00")</span>
+    </h4>
+    <h4>
+        Final Grade: <span class="text-info">@Model.FinalGrade</span>
+    </h4>
+</div>
 
-<h4>
-    ID:
-    @Model.StudentIdCode
-</h4>
-
-<h2>
-    GPA:
-    <span style="color:green;">
-        @Model.GPA
-    </span>
-</h2>
-
-<h2>
-    Grade:
-    <span style="color:blue;">
-        @Model.FinalGrade
-    </span>
-</h2>
-
-<table
-    border="1"
-    style="
-width:100%;
-border-collapse:collapse;
-">
-
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
     <tr>
-
-        <th>
-            Course
-        </th>
-
-        <th>
-            Marks
-        </th>
-
-        <th>
-            Grade
-        </th>
-
-        <th>
-            GP
-        </th>
-
+        <th>Course</th>
+        <th>Marks</th>
+        <th>Grade</th>
+        <th>Grade Point</th>
+        @if (User.IsInRole("Admin"))
+        {
+            <th>Actions</th>
+        }
     </tr>
-
-    @foreach (
-        var row
-        in Model.Results
-    )
+    </thead>
+    <tbody>
+    @foreach (var row in Model.Results)
     {
         <tr>
-
-            <td>
-                @row.Course
-            </td>
-
-            <td>
-                @row.Marks
-            </td>
-
-            <td>
-                @row.Grade
-            </td>
-
-            <td>
-                @row.GradePoint
-            </td>
-
+            <td>@(row.CourseTitle ?? "N/A")</td>
+            <td>@row.Score</td>
+            <td>@row.Grade</td>
+            <td>@row.GradePoint.ToString("0.00")</td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@row.Id" class="btn btn-sm btn-warning">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@row.Id" class="btn btn-sm btn-danger">
+                        <i class="fa fa-trash"></i> Delete
+                    </a>
+                </td>
+            }
         </tr>
     }
-
+    </tbody>
 </table>
 
-<br>
-
-<a
-    href="/Result/Search">
-
-    ⬅ Back
-
-</a>
-
-&nbsp;
-
-<a
-    href="/Result/Print?studentId=@ViewBag.StudentId">
-
-    🖨 Print
-
-</a>
+<div class="mt-3">
+    <a asp-action="Search" class="btn btn-secondary">
+        ⬅ Back
+    </a>
+    <a asp-action="Print" asp-route-studentId="@ViewBag.StudentId" class="btn btn-info">
+        🖨 Print
+    </a>
+</div>

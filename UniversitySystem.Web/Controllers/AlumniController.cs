@@ -1,60 +1,84 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using UniversitySystem.Application.Interfaces;
 using UniversitySystem.Application.DTOs;
+using UniversitySystem.Domain.Entities;
 
 namespace UniversitySystem.Web.Controllers
 {
-    [Authorize(Roles = "Admin,Teacher")]
+    [Authorize(Roles = "Admin,Teacher,Student")]
     public class AlumniController : Controller
     {
         private readonly IAlumniService _alumniService;
-        private readonly IDepartmentService _departmentService;
 
-        public AlumniController(IAlumniService alumniService, IDepartmentService departmentService)
+        public AlumniController(IAlumniService alumniService)
         {
             _alumniService = alumniService;
-            _departmentService = departmentService;
         }
 
+        // ==========================
+        // INDEX (All Alumni)
+        // ==========================
         public async Task<IActionResult> Index()
         {
             var alumni = await _alumniService.GetAllAsync();
-            return View(alumni);
+            return View(alumni); // typed List<AlumniDto>
         }
 
-        public async Task<IActionResult> Create()
+        // ==========================
+        // DETAILS
+        // ==========================
+        public async Task<IActionResult> Details(int id)
         {
-            ViewBag.Departments = new SelectList(await _departmentService.GetAllAsync(), "Id", "Name");
+            var alum = await _alumniService.GetByIdAsync(id);
+            if (alum == null)
+            {
+                TempData["Error"] = "Alumni not found.";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(alum);
+        }
+
+        // ==========================
+        // CREATE GET
+        // ==========================
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult Create()
+        {
             return View();
         }
 
+        // ==========================
+        // CREATE POST
+        // ==========================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AlumniDto dto)
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<IActionResult> Create(Alumni alumni)
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Departments = new SelectList(await _departmentService.GetAllAsync(), "Id", "Name", dto.DepartmentId);
-                return View(dto);
+                return View(alumni);
             }
 
-            await _alumniService.CreateAsync(dto);
-            TempData["Success"] = "Alumni Added";
+            await _alumniService.AddAsync(alumni);
+            TempData["Success"] = "Alumni record created successfully.";
             return RedirectToAction(nameof(Index));
         }
 
         // ==========================
         // EDIT GET
         // ==========================
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> Edit(int id)
         {
-            var alumni = await _alumniService.GetByIdAsync(id);
-            if (alumni == null) return NotFound();
-
-            ViewBag.Departments = new SelectList(await _departmentService.GetAllAsync(), "Id", "Name", alumni.DepartmentId);
-            return View(alumni);
+            var alum = await _alumniService.GetByIdAsync(id);
+            if (alum == null)
+            {
+                TempData["Error"] = "Alumni not found.";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(alum);
         }
 
         // ==========================
@@ -62,32 +86,27 @@ namespace UniversitySystem.Web.Controllers
         // ==========================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(AlumniDto dto)
+        [Authorize(Roles = "Admin,Teacher")]
+        public async Task<IActionResult> Edit(Alumni alumni)
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Departments = new SelectList(await _departmentService.GetAllAsync(), "Id", "Name", dto.DepartmentId);
-                return View(dto);
+                return View(alumni);
             }
 
-            await _alumniService.EditAsync(dto);
-            TempData["Success"] = "Alumni Updated";
+            await _alumniService.UpdateAsync(alumni);
+            TempData["Success"] = "Alumni record updated successfully.";
             return RedirectToAction(nameof(Index));
         }
 
+        // ==========================
+        // DELETE
+        // ==========================
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var alumni = await _alumniService.GetByIdAsync(id);
-            if (alumni == null) return NotFound();
-            return View(alumni);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
             await _alumniService.DeleteAsync(id);
-            TempData["Success"] = "Alumni Deleted";
+            TempData["Success"] = "Alumni record deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
     }

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using UniversitySystem.Application.Interfaces;
 using UniversitySystem.Application.DTOs;
 using UniversitySystem.Domain.Entities;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace UniversitySystem.Web.Controllers
 {
@@ -12,13 +14,16 @@ namespace UniversitySystem.Web.Controllers
     {
         private readonly IStudentService _studentService;
         private readonly IDepartmentService _departmentService;
+        private readonly IEnrollmentService _enrollmentService;
 
         public StudentController(
             IStudentService studentService,
-            IDepartmentService departmentService)
+            IDepartmentService departmentService,
+            IEnrollmentService enrollmentService)
         {
             _studentService = studentService;
             _departmentService = departmentService;
+            _enrollmentService = enrollmentService;
         }
 
         // ==========================
@@ -26,15 +31,24 @@ namespace UniversitySystem.Web.Controllers
         // ==========================
         public async Task<IActionResult> Dashboard()
         {
-            var students = await _studentService.GetAllAsync(); // returns List<StudentDto>
+            var studentId = GetCurrentStudentId();
+            var courses = await _enrollmentService.GetAvailableCoursesForStudentAsync(studentId);
 
-            ViewBag.TotalStudents = students.Count;
-            ViewBag.TotalDepartments = students
-                .Select(x => x.DepartmentName)
-                .Distinct()
-                .Count();
+            var courseDtos = new List<CourseDto>();
+            foreach (var c in courses)
+            {
+                courseDtos.Add(new CourseDto
+                {
+                    Id = c.Id,
+                    Title = c.Title,
+                    Code = c.Code,
+                    Credit = c.Credit,
+                    DepartmentId = c.DepartmentId,
+                    DepartmentName = c.Department != null ? c.Department.Name : string.Empty
+                });
+            }
 
-            return View(students); // pass typed List<StudentDto>
+            return View(courseDtos);
         }
 
         // ==========================
@@ -44,41 +58,43 @@ namespace UniversitySystem.Web.Controllers
         {
             const int pageSize = 8;
             var students = await _studentService.GetAllAsync();
+            var studentList = students.ToList();
 
             if (!string.IsNullOrWhiteSpace(search))
             {
                 search = search.Trim().ToLower();
-                students = students
-                    .Where(x =>
-                        (x.StudentIdCode ?? "").ToLower().Contains(search) ||
+                var filtered = new List<StudentDto>();
+                foreach (var x in studentList)
+                {
+                    if ((x.StudentIdCode ?? "").ToLower().Contains(search) ||
                         (x.Name ?? "").ToLower().Contains(search) ||
                         (x.Email ?? "").ToLower().Contains(search) ||
-                        (x.DepartmentName ?? "").ToLower().Contains(search)
-                    )
-                    .ToList();
+                        (x.DepartmentName ?? "").ToLower().Contains(search))
+                    {
+                        filtered.Add(x);
+                    }
+                }
+                studentList = filtered;
             }
 
-            ViewBag.TotalStudents = students.Count;
-            ViewBag.TotalDepartments = students
+            ViewBag.TotalStudents = studentList.Count;
+            ViewBag.TotalDepartments = studentList
                 .Select(x => x.DepartmentName)
                 .Distinct()
                 .Count();
 
             ViewBag.CurrentPage = page;
-            ViewBag.TotalPages = (int)Math.Ceiling(students.Count / (double)pageSize);
+            ViewBag.TotalPages = (int)Math.Ceiling(studentList.Count / (double)pageSize);
             ViewBag.Search = search;
 
-            students = students
+            var pagedStudents = studentList
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
-            return View(students); // typed List<StudentDto>
+            return View(pagedStudents);
         }
 
-        // ==========================
-        // CREATE GET
-        // ==========================
         [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> Create()
         {
@@ -90,9 +106,6 @@ namespace UniversitySystem.Web.Controllers
             return View();
         }
 
-        // ==========================
-        // CREATE POST
-        // ==========================
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Teacher")]
@@ -115,15 +128,18 @@ namespace UniversitySystem.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ==========================
-        // DELETE
-        // ==========================
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             await _studentService.DeleteAsync(id);
             TempData["Success"] = "Student Deleted";
             return RedirectToAction(nameof(Index));
+        }
+
+        private int GetCurrentStudentId()
+        {
+            var claim = User.FindFirst("StudentId");
+            return claim != null ? int.Parse(claim.Value) : 0;
         }
     }
 }

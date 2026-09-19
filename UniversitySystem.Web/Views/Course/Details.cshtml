@@ -1,0 +1,25 @@
+@using UniversitySystem.Application.DTOs
+@model CourseDto
+
+@{
+    ViewData["Title"] = "Course Details";
+Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Course Details</h2>
+<hr />
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <p><strong>Title:</strong> @Model.Title</p>
+        <p><strong>Code:</strong> @Model.Code</p>
+        <p><strong>Credit:</strong> @Model.Credit</p>
+        <p><strong>Department:</strong> @Model.DepartmentName</p>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

@@ -1,0 +1,47 @@
+@using UniversitySystem.Domain.Entities
+@model IEnumerable<StudentMark>
+
+@{
+    ViewData["Title"] = "All Student Marks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All Student Marks</h2>
+<hr />
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Score</th>
+            <th>Grade Point</th>
+            <th>Grade</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var mark in Model)
+        {
+            <tr>
+                <td>@mark.Student?.Name</td>
+                <td>@mark.Course?.Title</td>
+                <td>@mark.Score</td>
+                <td>@mark.GradePoint</td>
+                <td>@mark.Grade</td>
+                <td>
+                    <a asp-action="Result" asp-route-studentId="@mark.StudentId" class="btn btn-info btn-sm">Transcript</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info text-center">
+        No marks available.
+    </div>
+}

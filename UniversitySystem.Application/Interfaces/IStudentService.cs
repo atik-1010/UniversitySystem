@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using UniversitySystem.Application.DTOs;
 using UniversitySystem.Domain.Entities;
 
@@ -14,4 +15,5 @@ public interface IStudentService
     Task UpdateAsync(Student student);
 
     Task DeleteAsync(int id);
+    Task<object> GetCurrentStudentIdAsync(ClaimsPrincipal user);
 }

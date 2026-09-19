@@ -1,0 +1,49 @@
+@using UniversitySystem.Application.DTOs
+@model StudentResultDto
+
+@{
+    ViewData["Title"] = "My Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Result</h2>
+<hr />
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <h4 class="card-title">@Model.StudentName</h4>
+        <p><strong>Student ID:</strong> @Model.StudentId</p>
+        <p><strong>GPA:</strong> @Model.GPA.ToString("0.00")</p>
+    </div>
+</div>
+
+@if (Model.Marks != null && Model.Marks.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Course</th>
+            <th>Score</th>
+            <th>Grade Point</th>
+            <th>Grade</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var mark in Model.Marks)
+        {
+            <tr>
+                <td>@mark.CourseTitle</td>
+                <td>@mark.Score</td>
+                <td>@mark.GradePoint</td>
+                <td>@mark.Grade</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info text-center">
+        No marks available.
+    </div>
+}

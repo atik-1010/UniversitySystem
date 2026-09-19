@@ -1,48 +1,47 @@
-@model List<UniversitySystem.Application.DTOs.CourseDto>
+@using UniversitySystem.Application.DTOs
+@model IEnumerable<CourseDto>
 
 @{
-    ViewData["Title"] = "Courses";
+    ViewData["Title"] = "All Courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Course List</h2>
+<h2>All Courses</h2>
+<hr />
 
-<a href="/Course/Create" class="btn btn-success mb-3">+ Add Course</a>
-
-<table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Code</th>
-        <th>Credit</th>
-        <th>Department</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    @if (Model != null && Model.Any())
-    {
-        foreach (var item in Model)
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Code</th>
+            <th>Credit</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var course in Model)
         {
             <tr>
-                <td>@item.Title</td>
-                <td>@item.Code</td>
-                <td>@item.Credit</td>
-                <td>@item.DepartmentName</td>
+                <td>@course.Title</td>
+                <td>@course.Code</td>
+                <td>@course.Credit</td>
+                <td>@course.DepartmentName</td>
                 <td>
-                    <a href="/Course/Edit/@item.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="/Course/Delete/@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                    <a asp-action="Details" asp-route-id="@course.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@course.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@course.Id" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         }
-    }
-    else
-    {
-        <tr>
-            <td colspan="5" class="text-center">
-                No courses found.<br />
-                <a href="/Course/Create" class="btn btn-success mt-2">Create First Course</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info text-center">
+        No courses available.
+    </div>
+}
